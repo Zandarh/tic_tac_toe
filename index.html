@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tic-Tac-Toe</h1>
+        </div>
+        <div id="choice" class="choice-div">
+            <div class="text-div">
+                <h2 class="text">Choose a Mode...</h2>
+                <div class="button-div">
+                    <div class="the-btn">
+                        <button id="computer">vs Computer</button>
+                        <button id="friends">vs Friend</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="thegame" class="game-div">
+            <div class="score-div">
+                <div class="player1-div">
+                    <div class="score-screen">
+                        <h3 class="player1Name"></h3>
+                        <h3 class="player1Score"></h3>
+                    </div>
+                </div>
+                <div class="verses">
+                    <h4>vs</h4>
+                </div>
+                <div class="player2-div">
+                    <div class="score-screen">
+                        <h3 class="player2Name"></h3>
+                        <h3 class="player2Score"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="board-div">
+                <div class="board">
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                    <div class="cells"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dialog boxes for game modes -->
+    <!-- Dialog 1 -->
+    <dialog id="dialogFriends">
+        <div class="dialog-friend-container">
+            <form method="dialog" id="friends-form" action="">
+                <label for="player-one-name">Player1 Name</label>
+                <input type="text" name="player-one-name" value="Player1" placeholder="Player 1 name" id="player1" required>
+                <input type="radio" name="marker" value="X" id="XplayerMarker" required>
+                <label for="marker">X</label>
+                <input type="radio" name="marker" value="O" id="OplayerMarker" required>
+                <label for="marker">O</label>
+                <label for="player-two-name">Player2 Name</label>
+                <input type="text" name="player-two-name" value="Player2" placeholder="Player 2 name" id="player2" required>
+             <button formmethod="dialog" type="submit">Start Game</button>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Dialog 2 -->
+    <dialog id="dialogComputer">
+        <div class="dialog-computer-container">
+            <form method="dialog" id="computer-form" action="">
+                <label for="player-one-name">Player Name</label>
+                <input type="text" name="player-one-name" value="Player1" id="player1" placeholder="Player Name" required>
+                <p class="markers">Choose your Marker</p>
+                <input type="radio" name="marker" value="X" id="XplayerMarker" required>
+                <label for="marker">X</label>
+                <input type="radio" name="marker" value="O" id="OplayerMarker" required>
+                <label for="marker">O</label>
+                <button formmethod="dialog" type="submit">Start Game</button>
+            </form>
+        </div>
+    </dialog>
+    <footer>
+        Alexander
+        <!-- <script>
+            const date = new Date().getFullYear();
+            console.log(date);
+        </script> -->
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
