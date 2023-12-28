@@ -43,24 +43,24 @@ function gameBoard(){
             }
         }
         for (let i = 0, j = 0; i < row; i++){
-            if(board[i][j] == board[i+1][j+1]){
+            if(board[i+2][j] == board[i+1][j+1]){
+                if(board[i+2][j] == board[i][j+2]){
+                    if(board[i][j+2] == 'X' || board[i][j+2] == 'O')
+                        return(board[i][j+2]);
+                }
+            }
+            
+            else if(board[i][j] == board[i+1][j+1]){
                 if(board[i][j] == board[i+2][j+2]){
                     if(board[i][j] == 'X' || board[i][j] == 'O')
                         return(board[i][j]);
                 }
             }
-            else if(board[i][j+2] == board[i+1][j+1]){
-                if(board[i][j+2] == board[i+2][j]){
-                    if(board[i][j+2] == 'X' || board[i][j+2] == 'O')
-                        return(board[i][j+2]);
-                }
-            }
-                break;
+            break;
             }
         }
         function resetBoard(){
             createBoard();
-            console.log(gameBoard.board);
         }
     return{fillBoard, checkForWin, resetBoard, gameBoard}
 }
