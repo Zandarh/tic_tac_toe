@@ -6,68 +6,63 @@ function gameBoard(){
     }
     const row = 3;
     const column = 3;
+
     createBoard();
 
+
     function createBoard(){
-        for (let i = 0; i < row; i++){
-            gameBoard.board[i] = [];
-            for(let j = 0; j < column; j++){
-                gameBoard.board[i].push('-');
+            for (let i = 0; i < row; i++){
+                gameBoard.board[i] = [];
+                for(let j = 0; j < column; j++){
+                    gameBoard.board[i].push('-');
                 }
             }
-        }
+        
+    }
+    function fillBoard(e, row, column){
+        if(gameBoard.board[row][column] == '-')
+            gameBoard.board[row][column] = e.target.textContent;
+    }
 
-        function render(){
-            console.table(gameBoard.board);
-            
-        }
-        function checkCell(row, column){
-            if(gameBoard.board[row][column] == '-'){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
-        function addPlayerMarker(player, row, column){
-            gameBoard.board[row][column] = player.marker;
-        }
-
-        function checkForWin(){
-            const board = gameBoard.board;
-            for (let i = 0, j= 0; i < row; i++){
-                if (board[i][j] == board[i][j+1]){
-                    if(board[i][j] == board[i][j+2])
+    function checkForWin(){
+        const board = gameBoard.board;
+        for (let i = 0, j= 0; i < row; i++){
+            if (board[i][j] == board[i][j+1]){
+                if(board[i][j] == board[i][j+2]){
+                    if(board[i][j] == 'X' || board[i][j] == 'O')
                         return(board[i][j]);
                 }
             }
-            for (let i = 0, j = 0; j < column; j++){
-                if(board[i][j] == board[i+1][j]){
-                    if(board[i][j] == board[i+2][j])
+        }
+        for (let i = 0, j = 0; j < column; j++){
+            if(board[i][j] == board[i+1][j]){
+                if(board[i][j] == board[i+2][j]){
+                    if(board[i][j] == 'X' || board[i][j] == 'O')
                         return(board[i][j]);
                 }
             }
-            for (let i = 0, j = 0; i < row; i++){
-                if(board[i][j] == board[i+1][j+1]){
-                    if(board[i][j] = board[i+2][j+2]){
-                        console.log(board[i][j]);
+        }
+        for (let i = 0, j = 0; i < row; i++){
+            if(board[i][j] == board[i+1][j+1]){
+                if(board[i][j] == board[i+2][j+2]){
+                    if(board[i][j] == 'X' || board[i][j] == 'O')
                         return(board[i][j]);
-                    }
                 }
-                else if(board[i][j+2] == board[i+1][j+1]){
-                    if(board[i][j+2] == board[i+2][j]){
-                        console.log(board[i][j]);
+            }
+            else if(board[i][j+2] == board[i+1][j+1]){
+                if(board[i][j+2] == board[i+2][j]){
+                    if(board[i][j+2] == 'X' || board[i][j+2] == 'O')
                         return(board[i][j+2]);
-                    }
                 }
+            }
                 break;
             }
         }
         function resetBoard(){
             createBoard();
+            console.log(gameBoard.board);
         }
-    return{checkCell, addPlayerMarker, render, checkForWin, resetBoard}
+    return{fillBoard, checkForWin, resetBoard, gameBoard}
 }
 function player(name, marker){
     let score = 0;
@@ -75,7 +70,7 @@ function player(name, marker){
 
 }
 function GameControl(){
-    // const game = gameBoard();
+    const game = gameBoard();
 
     //Empty player objects
     let player1 = {};
@@ -111,6 +106,7 @@ function GameControl(){
         btnComputerForm.addEventListener('submit', getPlayerDetails)
         cells.forEach(cell => {
             cell.addEventListener('click', showMarker)
+            cell.addEventListener('click', getcellId)
         });
     }
 
@@ -134,6 +130,17 @@ function GameControl(){
             e.target.textContent = currentPlayer.marker;
             switchActivePlayer();
         }
+    }
+
+    function getcellId(e){
+        const cellId = e.target.id;
+        const array = cellId.split('');
+        const row = array[0];
+        const column = array[1];
+
+        game.fillBoard(e, row, column);
+        const winStat = game.checkForWin();
+        declareWinner(winStat);
     }
     //get player details
     function getPlayerDetails(e){
@@ -200,8 +207,6 @@ function GameControl(){
     }
 
     function displayplayerDetails(){
-        console.log(player1);
-        console.log(player2.name);
         //display for player 1
         firstPlayerName.textContent = player1.name;
         firstPlayerScore.textContent = `Score: ${player1.score}`;
@@ -210,53 +215,48 @@ function GameControl(){
         secondPlayerScore.textContent = `Score: ${player2.score}`;
     }
 
-    // function declareWinner(winStat){
-    //     if(winStat){
-    //         if(winStat == 'X'){
-    //             console.log(`${player1.name} wins`);
-    //             player[0].score++;
-    //             game.resetBoard();
-    //         }
-    //         else if (winStat == 'O') {
-    //             console.log(`${player2.name} wins`);
-    //             player[1].score++;
-    //             game.resetBoard();
-    //         }
-    //         console.log(`${playe1.name} score:  ${player1.score}`)
-    //         console.log(`${player2.name} score:  ${player2.score}`)
-    //     }
-    //     else{
-    //         console.log('Tie');
-    //         console.log(`${player1.name} score:  ${player1.score}`)
-    //         console.log(`${player2.name} score:  ${player2.score}`)
-    //         game.resetBoard;
-    //     }
-    // }
-
-//    function playRound(){
-//     const {row, column} = getPlayerChoice();
-//     const emptycell = game.checkCell(row, column);
-    
-//     if (emptycell){
-//         game.addPlayerMarker(activePlayer, row, column);
-//         console.log(`dropping ${activePlayer.name}'s marker in row: ${row} and column: ${column}`);
-//         const winStat = game.checkForWin();
-//         declareWinner(winStat);
-            
-
-//         switchActivePlayer();
-//         printNewRound();
-//     }
-//     else{
-//         console.log(`Cell already taken, play again`);
-//         playRound();
-//     }
-//    }
-//    return{
-//     playRound
-//    }
-   
-
+    function declareWinner(winStat){
+        if(winStat){
+            if(winStat == 'X'){
+                if(player1.marker == 'X'){
+                    console.log(`${player1.name} wins`);
+                    player1.score++;
+                    displayplayerDetails()
+                    game.resetBoard();
+                    resetUiScreen();
+                }
+                else{
+                    console.log(`${player2.name} wins`);
+                    player1.score++;
+                    displayplayerDetails()
+                    game.resetBoard();
+                    resetUiScreen();
+                }
+                
+            }
+            else if (winStat == 'O') {
+                if(player1.marker == "O"){
+                    console.log(`${player1.name} wins`);
+                    player1.score++;
+                    displayplayerDetails()
+                    game.resetBoard();
+                    resetUiScreen();
+                }
+                else{
+                    console.log(`${player2.name} wins`)
+                    player2.score++;
+                    displayplayerDetails()
+                    game.resetBoard();
+                    resetUiScreen();
+                }
+            }
+        }
+    }
+    function resetUiScreen(){
+        cells.forEach(cell => {
+            cell.textContent = '';
+        });
+    }
 }
 
 const theGame = GameControl();
