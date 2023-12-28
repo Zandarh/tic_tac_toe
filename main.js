@@ -257,6 +257,9 @@ function GameControl(){
                 }
             }
         }
+        else{
+            drawChecker();
+        }
     }
     function resetUiScreen(){
         cells.forEach(cell => {
@@ -274,7 +277,6 @@ function GameControl(){
                     }
                 }
             }
-            console.log(available.length);
             let move = random(available);
             const string = String(move.i) + String(move.j);
             cells.forEach(cell => {
@@ -293,6 +295,21 @@ function GameControl(){
         const arrayLenght = array.length;
         let randomSelect = Math.floor(Math.random( )* arrayLenght);
         return array[randomSelect];
+    }
+    function drawChecker(){
+        const draw = [];
+        for (let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                if(game.gameBoard.board[i][j] == 'X' || game.gameBoard.board[i][j] == 'O'){
+                   draw.push('Yes');
+                }
+            }
+        }
+        if(draw.length === 9){
+            console.log("It's a Tie");
+            game.resetBoard();
+            resetUiScreen();
+        }
     }
 }
 
