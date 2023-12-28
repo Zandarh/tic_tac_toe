@@ -19,9 +19,10 @@ function gameBoard(){
             }
         
     }
-    function fillBoard(e, row, column){
+    function fillBoard(marker, row, column){
         if(gameBoard.board[row][column] == '-')
-            gameBoard.board[row][column] = e.target.textContent;
+            gameBoard.board[row][column] = marker;
+
     }
 
     function checkForWin(){
@@ -106,7 +107,6 @@ function GameControl(){
         btnComputerForm.addEventListener('submit', getPlayerDetails)
         cells.forEach(cell => {
             cell.addEventListener('click', showMarker)
-            cell.addEventListener('click', getcellId)
         });
     }
 
@@ -126,9 +126,14 @@ function GameControl(){
 
     function showMarker(e){
         const currentPlayer = getActivePlayer();
-        if(!e.target.textContent){
+        if(!e.target.textContent && currentPlayer.name != "computer"){
             e.target.textContent = currentPlayer.marker;
+            getcellId(e)
             switchActivePlayer();
+            computerPlay(e);
+        }
+        else{
+            computerPlay(e);
         }
     }
 
@@ -138,7 +143,8 @@ function GameControl(){
         const row = array[0];
         const column = array[1];
 
-        game.fillBoard(e, row, column);
+        const marker = activePlayer.marker;
+        game.fillBoard(marker, row, column);
         const winStat = game.checkForWin();
         declareWinner(winStat);
     }
@@ -256,6 +262,37 @@ function GameControl(){
         cells.forEach(cell => {
             cell.textContent = '';
         });
+    }
+    function computerPlay(e){
+        if(activePlayer.name == "computer"){
+            
+            const available = [];
+            for (let i = 0; i < 3; i++){
+                for(let j = 0; j < 3; j++){
+                    if(game.gameBoard.board[i][j] == '-'){
+                        available.push({i, j})
+                    }
+                }
+            }
+            console.log(available.length);
+            let move = random(available);
+            const string = String(move.i) + String(move.j);
+            cells.forEach(cell => {
+                if(cell.id == string){
+                    cell.textContent = activePlayer.marker
+                }
+            });
+            const marker = activePlayer.marker;
+            game.fillBoard(marker, move.i, move.j);
+            const winStat = game.checkForWin();
+            declareWinner(winStat);
+            switchActivePlayer();
+        }
+    }
+    function random(array){
+        const arrayLenght = array.length;
+        let randomSelect = Math.floor(Math.random( )* arrayLenght);
+        return array[randomSelect];
     }
 }
 
