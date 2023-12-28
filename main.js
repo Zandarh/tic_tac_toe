@@ -130,11 +130,10 @@ function GameControl(){
 
     function showMarker(e){
         const currentPlayer = getActivePlayer();
-        console.log(player1);
-        console.log(player2);
-        e.target.textContent = currentPlayer.marker;
-        switchActivePlayer();
-
+        if(!e.target.textContent){
+            e.target.textContent = currentPlayer.marker;
+            switchActivePlayer();
+        }
     }
     //get player details
     function getPlayerDetails(e){
