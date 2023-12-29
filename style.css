@@ -49,6 +49,7 @@ div.game-div{
     display: none;
     grid-area: 2/1;
     grid-template-rows: 1fr 3fr;
+    
 }
 div.game-div .score-div{
     grid-area: 1/1/1/2;
@@ -97,6 +98,7 @@ div.game-div .board-div{
     grid-area: 2/1/2/2;
     display: grid;
     padding: 20px;
+    position: relative;
     
 }
 div.game-div .board{
@@ -147,6 +149,37 @@ div.the-btn > button{
 div.the-btn > button:hover{
     background-color: var(--header-bg);
     color: var(--bg-color);
+}
+div.scores{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    background-color: var(--header-bg);
+    position: absolute;
+    width: 100%;
+    top: 350px;
+}
+div.scores p{
+    color: var(--bg-color);
+}
+div.scores button{
+    font-size: 1rem;
+    padding: 5px;
+    width: 7rem;
+    cursor: pointer;
+    height: 2rem;
+    border-radius: 10px;
+    border: 1px solid var(--header-bg);
+    color: var(--header-bg);
+    cursor: pointer;
+}
+div.scores button:hover{
+    border: 1px solid var(--bg-color);
+    color: var(--bg-color);
+    background-color: var(--text-color);
 }
 footer{
     grid-area: 3/1;

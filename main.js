@@ -77,6 +77,7 @@ function GameControl(){
     let player1 = {};
     let player2 = {};
     activePlayer = {};
+    let round = "open";
     
 
     // Gets the dom nodes
@@ -94,6 +95,9 @@ function GameControl(){
     const firstPlayerScore = document.querySelector('.player1Score');
     const secondPlayerName = document.querySelector('.player2Name');
     const secondPlayerScore = document.querySelector('.player2Score');
+    const scoreDiv = document.querySelector('.scores');
+    const scoreRestart = document.querySelector('.score-restart');
+    const nextRound = document.querySelector('.next-round');
 
     
 
@@ -108,6 +112,8 @@ function GameControl(){
         cells.forEach(cell => {
             cell.addEventListener('click', showMarker)
         });
+        scoreRestart.addEventListener('click', restartGame);
+        nextRound.addEventListener('click', startNextRound);
     }
 
     function openComputerDialog(){
@@ -133,7 +139,7 @@ function GameControl(){
             computerPlay(e);
         }
         else{
-            computerPlay(e);
+            computerPlay();
         }
     }
 
@@ -153,10 +159,16 @@ function GameControl(){
         e.preventDefault();
 
         if(e.target.id == "computer-form"){
-            const name = e.target.firstElementChild.nextElementSibling.value
+            let name = e.target.firstElementChild.nextElementSibling.value
             const marker = getRadioInputValue();
-            player1 = player(name, marker);
+            
+            // Generating the player and computer objects
 
+            if(name == ''){
+               name = "Player";
+            }
+            player1 = player(name, marker);
+            
             if(marker == "X"){
                 player2 = player("computer", "O");
             }
@@ -165,9 +177,16 @@ function GameControl(){
             } 
         }
         else{                 
-                const player1Name = e.target.firstElementChild.nextElementSibling.value;
-                const player2Name = e.target.lastElementChild.previousElementSibling.value;
+                let player1Name = e.target.firstElementChild.nextElementSibling.value;
+                let player2Name = e.target.lastElementChild.previousElementSibling.value;
                 const marker = getRadioInputValue();
+
+                if(player2Name == ''){
+                    player2Name = "Player 2";
+                }
+                if(player1Name == ''){
+                    player1Name = "Player 1";
+                }
                 
                 if(marker == "X"){
                     player2 = player(player2Name, "O");
@@ -213,7 +232,7 @@ function GameControl(){
     }
 
     function displayplayerDetails(){
-        //display for player 1
+        //display for players
         firstPlayerName.textContent = player1.name;
         firstPlayerScore.textContent = `Score: ${player1.score}`;
 
@@ -221,39 +240,65 @@ function GameControl(){
         secondPlayerScore.textContent = `Score: ${player2.score}`;
     }
 
+    function restartGame(){
+        location.reload();
+    }
+    function startNextRound(){
+        toggleRound();
+        game.resetBoard();
+        resetUiScreen();
+        scoreDiv.style.display = "none";
+        if(activePlayer.name == "computer" && round == "open")
+            computerPlay()
+    }
+
+    function toggleRound(){
+        if(round == "closed")
+            round = "open";
+        else
+            round = "closed";
+    }
+    function displayScore(activePlayer, aDraw){
+        if(aDraw == 9){
+            scoreDiv.style.display = "flex";
+            scoreDiv.firstElementChild.textContent = (`It's a Tie`);
+            toggleRound();
+        }
+        else{
+            scoreDiv.style.display = "flex";
+            scoreDiv.firstElementChild.textContent = (`${activePlayer.name} wins`);
+        }
+        
+    }
     function declareWinner(winStat){
         if(winStat){
             if(winStat == 'X'){
                 if(player1.marker == 'X'){
-                    console.log(`${player1.name} wins`);
+                    displayScore(activePlayer, 1); // 1 as second argument to indicate it's not a draw
                     player1.score++;
-                    displayplayerDetails()
-                    game.resetBoard();
-                    resetUiScreen();
+                    displayplayerDetails();
+                    toggleRound();
                 }
                 else{
-                    console.log(`${player2.name} wins`);
-                    player1.score++;
-                    displayplayerDetails()
-                    game.resetBoard();
-                    resetUiScreen();
+                    displayScore(activePlayer, 1); // 1 as second argument to indicate it's not a draw
+                    player2.score++;
+                    displayplayerDetails();
+                    toggleRound();
                 }
                 
             }
             else if (winStat == 'O') {
                 if(player1.marker == "O"){
-                    console.log(`${player1.name} wins`);
+                    displayScore(activePlayer, 1); // 1 as second argument to indicate it's not a draw
                     player1.score++;
-                    displayplayerDetails()
-                    game.resetBoard();
-                    resetUiScreen();
+                    displayplayerDetails();
+                    toggleRound();
                 }
                 else{
-                    console.log(`${player2.name} wins`)
+                    displayScore(activePlayer, 1); // 1 as second argument to indicate it's not a draw
                     player2.score++;
-                    displayplayerDetails()
-                    game.resetBoard();
-                    resetUiScreen();
+                    displayplayerDetails();
+                    toggleRound();
                 }
             }
         }
@@ -266,9 +311,10 @@ function GameControl(){
             cell.textContent = '';
         });
     }
-    function computerPlay(e){
-        if(activePlayer.name == "computer"){
-            
+    function computerPlay(){
+        if(activePlayer.name == "computer" && round == "open"){
+
+            //getting all available cells
             const available = [];
             for (let i = 0; i < 3; i++){
                 for(let j = 0; j < 3; j++){
@@ -277,6 +323,7 @@ function GameControl(){
                     }
                 }
             }
+            // Randomly picking a cell to play
             let move = random(available);
             const string = String(move.i) + String(move.j);
             cells.forEach(cell => {
@@ -291,6 +338,8 @@ function GameControl(){
             switchActivePlayer();
         }
     }
+
+    // Randomly selects a index from the array passed to it
     function random(array){
         const arrayLenght = array.length;
         let randomSelect = Math.floor(Math.random( )* arrayLenght);
@@ -306,9 +355,8 @@ function GameControl(){
             }
         }
         if(draw.length === 9){
-            console.log("It's a Tie");
-            game.resetBoard();
-            resetUiScreen();
+            const aDraw = draw.length;
+            displayScore(activePlayer, aDraw);
         }
     }
 }

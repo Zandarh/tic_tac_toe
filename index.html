@@ -53,6 +53,14 @@
                     <div id="22" class="cells"></div>
                 </div>
             </div>
+            <button>Restart</button>
+            <div class="scores">
+                <p class="result"></p>
+                <div class="score-button">
+                    <button class="score-restart">Restart</button>
+                    <button class="next-round">Next Round</button>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -62,13 +70,13 @@
         <div class="dialog-friend-container">
             <form method="dialog" id="friends-form" action="">
                 <label for="player-one-name">Player1 Name</label>
-                <input type="text" name="player-one-name" value="Player1" placeholder="Player 1 name" id="player1" required>
+                <input type="text" name="player-one-name" placeholder="Player 1 name" id="player1">
                 <input type="radio" name="marker" value="X" id="XplayerMarker" required>
                 <label for="marker">X</label>
                 <input type="radio" name="marker" value="O" id="OplayerMarker" required>
                 <label for="marker">O</label>
                 <label for="player-two-name">Player2 Name</label>
-                <input type="text" name="player-two-name" value="Player2" placeholder="Player 2 name" id="player2" required>
+                <input type="text" name="player-two-name" placeholder="Player 2 name" id="player2">
              <button formmethod="dialog" type="submit">Start Game</button>
             </form>
         </div>
@@ -79,7 +87,7 @@
         <div class="dialog-computer-container">
             <form method="dialog" id="computer-form" action="">
                 <label for="player-one-name">Player Name</label>
-                <input type="text" name="player-one-name" value="Player1" id="player1" placeholder="Player Name" required>
+                <input type="text" name="player-one-name" id="player1" placeholder="Player Name">
                 <p class="markers">Choose your Marker</p>
                 <input type="radio" name="marker" value="X" id="XplayerMarker" required>
                 <label for="marker">X</label>
