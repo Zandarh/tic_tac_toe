@@ -98,6 +98,7 @@ function GameControl(){
     const scoreDiv = document.querySelector('.scores');
     const scoreRestart = document.querySelector('.score-restart');
     const nextRound = document.querySelector('.next-round');
+    const refreshPage = document.querySelector('.page-refresh');
 
     
 
@@ -114,6 +115,7 @@ function GameControl(){
         });
         scoreRestart.addEventListener('click', restartGame);
         nextRound.addEventListener('click', startNextRound);
+        refreshPage.addEventListener('click', restartGame);
     }
 
     function openComputerDialog(){
@@ -132,7 +134,7 @@ function GameControl(){
 
     function showMarker(e){
         const currentPlayer = getActivePlayer();
-        if(!e.target.textContent && currentPlayer.name != "computer"){
+        if(!e.target.textContent && currentPlayer.marker != player2.marker){
             e.target.textContent = currentPlayer.marker;
             getcellId(e)
             switchActivePlayer();
@@ -167,13 +169,16 @@ function GameControl(){
             if(name == ''){
                name = "Player";
             }
+            else{
+                name = name.toLowerCase();
+            }
             player1 = player(name, marker);
-            
+
             if(marker == "X"){
-                player2 = player("computer", "O");
+                player2 = player("Computer", "O");
             }
             else{
-                player2 = player("computer", "X");
+                player2 = player("Computer", "X");
             } 
         }
         else{                 
@@ -183,9 +188,13 @@ function GameControl(){
 
                 if(player2Name == ''){
                     player2Name = "Player 2";
+                }else{
+                    player2Name = player2Name.toLowerCase()
                 }
                 if(player1Name == ''){
                     player1Name = "Player 1";
+                }else{
+                    player1Name = player1Name.toLowerCase()
                 }
                 
                 if(marker == "X"){
@@ -243,12 +252,13 @@ function GameControl(){
     function restartGame(){
         location.reload();
     }
+    
     function startNextRound(){
         toggleRound();
         game.resetBoard();
         resetUiScreen();
         scoreDiv.style.display = "none";
-        if(activePlayer.name == "computer" && round == "open")
+        if(player2.name == "Computer" && round == "open")
             computerPlay()
     }
 
@@ -263,6 +273,7 @@ function GameControl(){
             scoreDiv.style.display = "flex";
             scoreDiv.firstElementChild.textContent = (`It's a Tie`);
             toggleRound();
+            console.log(round);
         }
         else{
             scoreDiv.style.display = "flex";
@@ -312,7 +323,7 @@ function GameControl(){
         });
     }
     function computerPlay(){
-        if(activePlayer.name == "computer" && round == "open"){
+        if(activePlayer.name == "Computer" && player2.name == "Computer" && round == "open"){
 
             //getting all available cells
             const available = [];
