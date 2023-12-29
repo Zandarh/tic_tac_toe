@@ -87,7 +87,8 @@ function GameControl(){
     const dialogComputer = document.querySelector('#dialogComputer');
     const btnFriendsForm = document.querySelector('#friends-form');
     const btnComputerForm = document.querySelector('#computer-form');
-    const computerRadio = document.getElementsByName('marker');
+    const friendSelctedMarker = document.querySelector('#friendmarker');
+    const computerSelctedMarker = document.querySelector('#computermarker');
     const modes = document.querySelector('#choice');
     const gamediv = document.querySelector('#thegame');
     const cells = document.querySelectorAll('.cells');
@@ -134,7 +135,7 @@ function GameControl(){
 
     function showMarker(e){
         const currentPlayer = getActivePlayer();
-        if(!e.target.textContent && currentPlayer.marker != player2.marker){
+        if(!e.target.textContent && currentPlayer.name != "Computer"){
             e.target.textContent = currentPlayer.marker;
             getcellId(e)
             switchActivePlayer();
@@ -162,7 +163,7 @@ function GameControl(){
 
         if(e.target.id == "computer-form"){
             let name = e.target.firstElementChild.nextElementSibling.value
-            const marker = getRadioInputValue();
+            const marker = getRadioInputValue(e);
             
             // Generating the player and computer objects
 
@@ -184,7 +185,8 @@ function GameControl(){
         else{                 
                 let player1Name = e.target.firstElementChild.nextElementSibling.value;
                 let player2Name = e.target.lastElementChild.previousElementSibling.value;
-                const marker = getRadioInputValue();
+                const marker = getRadioInputValue(e);
+                console.log(marker);
 
                 if(player2Name == ''){
                     player2Name = "Player 2";
@@ -221,10 +223,14 @@ function GameControl(){
    
 
     //Getting the player markers from the form
-    function getRadioInputValue(){
-        for(let i = 0; i < computerRadio.length; i++){
-            if(computerRadio[i].checked)
-                return computerRadio[i].value;
+    function getRadioInputValue(e){
+        if(e.target.id == "computer-form"){
+            const marker = computerSelctedMarker.value;
+            return marker;
+        }
+        else{
+            const marker = friendSelctedMarker.value;
+            return marker;
         }
     }
     //switches between players
@@ -252,7 +258,7 @@ function GameControl(){
     function restartGame(){
         location.reload();
     }
-    
+
     function startNextRound(){
         toggleRound();
         game.resetBoard();

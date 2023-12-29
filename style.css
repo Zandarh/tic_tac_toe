@@ -18,6 +18,7 @@ body{
     grid-template-rows: 3fr 0.1fr;
     background-color: var(--bg-color);
     background-image: url(img/tic-tac-toe-game-svgrepo-com.svg);
+    position: relative;
 
 }
 div.container{
@@ -196,6 +197,63 @@ div.scores button:hover{
     border: 1px solid var(--bg-color);
     color: var(--bg-color);
     background-color: var(--text-color);
+}
+
+.friends,
+.computer{
+    position: fixed;
+    top: 10px;
+    width: 60%;
+    margin: auto;
+    border-radius: 10px;
+    border: 1px solid var(--header-bg);
+}
+.dialog-friend-container,
+.dialog-computer-container{
+    padding: 20px;
+}
+.dialog-friend-container > form,
+.dialog-computer-container > form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.dialog-friend-container > form > input[type=text],
+.dialog-computer-container > form > input[type=text]{
+    padding: 5px;
+    height: 1.3rem;
+    border-radius: 5px;
+    border: 1px solid var(--header-bg);
+}
+.dialog-friend-container > form > label,
+.dialog-computer-container > form > label{
+    font-size: 0.9rem;
+}
+.dialog-friend-container > form > select,
+.dialog-computer-container > form > select{
+    border: 1px solid var(--header-bg);
+    height: 1.5rem;
+    border-radius: 5px;
+}
+.dialog-friend-container > form > button,
+.dialog-computer-container > form > button{
+    align-self: center;
+    font-size: 1rem;
+    padding: 5px;
+    width: 7rem;
+    cursor: pointer;
+    height: 2rem;
+    border-radius: 10px;
+    background-color: var(--header-bg);
+    color:var(--bg-color);
+    cursor: pointer;
+    border: none;
+}
+.dialog-friend-container > form > button:hover,
+.dialog-computer-container > form > button:hover{
+    border: 1px solid var(--header-bg);
+    color: var(--header-bg);
+    background-color: var(--bg-color);
 }
 footer{
     grid-area: 3/1;

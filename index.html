@@ -66,16 +66,17 @@
     
     <!-- Dialog boxes for game modes -->
     <!-- Dialog 1 -->
-    <dialog id="dialogFriends">
+    <dialog id="dialogFriends" class="friends">
         <div class="dialog-friend-container">
             <form method="dialog" id="friends-form" action="">
-                <label for="player-one-name">Player1 Name</label>
+                <label for="player-one-name">Player 1 Name</label>
                 <input type="text" name="player-one-name" placeholder="Player 1 name" id="player1">
-                <input type="radio" name="marker" value="X" id="XplayerMarker" required>
-                <label for="marker">X</label>
-                <input type="radio" name="marker" value="O" id="OplayerMarker" required>
-                <label for="marker">O</label>
-                <label for="player-two-name">Player2 Name</label>
+                <label for="themarker">Marker</label>
+                <select name="themarker" id="friendmarker">
+                    <option value="X">X</option>
+                    <option value="O">O</option>
+                </select>
+                <label for="player-two-name">Player 2 Name</label>
                 <input type="text" name="player-two-name" placeholder="Player 2 name" id="player2">
              <button formmethod="dialog" type="submit">Start Game</button>
             </form>
@@ -83,16 +84,16 @@
     </dialog>
 
     <!-- Dialog 2 -->
-    <dialog id="dialogComputer">
+    <dialog id="dialogComputer" class="computer">
         <div class="dialog-computer-container">
             <form method="dialog" id="computer-form" action="">
                 <label for="player-one-name">Player Name</label>
                 <input type="text" name="player-one-name" id="player1" placeholder="Player Name">
-                <p class="markers">Choose your Marker</p>
-                <input type="radio" name="marker" value="X" id="XplayerMarker" required>
-                <label for="marker">X</label>
-                <input type="radio" name="marker" value="O" id="OplayerMarker" required>
-                <label for="marker">O</label>
+                <label for="themarker">Marker</label>
+                <select name="themarker" id="computermarker">
+                    <option value="X">X</option>
+                    <option value="O">O</option>
+                </select>
                 <button formmethod="dialog" type="submit">Start Game</button>
             </form>
         </div>
