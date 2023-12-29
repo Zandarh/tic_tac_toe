@@ -33,11 +33,12 @@ div.container{
     display: flex;
     justify-content: center;
     padding: 20px;
+    grid-area: 1/1/1/2;
 }
 .header > h1{
-    grid-area: 1/2;
+    
     color: var(--bg-color);
-    font-size: 3.4rem;
+    font-size: 3rem;
 }
 div.choice-div{
     grid-area: 2/1;
@@ -257,4 +258,179 @@ div.scores button:hover{
 }
 footer{
     grid-area: 3/1;
+    margin: auto;
+    font-size: 1.1rem;
+    color: var(--header-bg);
+}
+footer > p > a,
+footer > p{
+    text-decoration: none;
+    color: var(--header-bg);    
+}
+footer > p > a{
+    cursor: pointer;
+}
+footer > p > a:hover{
+    color: blue;
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+/* //For Tablets */
+    body{
+       display: flex;
+     flex-direction: column;
+    }
+    .container {
+      width: 100%;
+    
+    }
+    .header{
+        width: 100%;
+    }
+    .header > h1{
+        font-size: 6rem;
+    }
+    div.game-div{
+        justify-self: center;
+        width: 60%;
+    }
+    .text-div > h2{
+        font-size: 3rem;
+    }
+    div.the-btn > button{
+        font-size: 2rem;
+        height: 50px;
+        width: 200px;
+    }
+    .page-refresh{
+        margin-bottom: 20px;
+    
+    }
+    div.scores{
+        top: 450px;
+        left: 0px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+/* //For Laptops */
+    body{
+        display: flex;
+        flex-direction: column;
+    }
+    .container {
+        width: 100%;
+        
+    }
+    .header{
+        width: 100%;
+    }
+    .header > h1{
+        font-size: 6rem;
+    }
+    div.game-div{
+        justify-self: center;
+        width: 55%;
+    }
+    .text-div > h2{
+        font-size: 3rem;
+    }
+    div.the-btn > button{
+        font-size: 2rem;
+        height: 50px;
+        width: 200px;
+    }
+    .friends,
+    .computer{
+        width: 40%;
+}
+.page-refresh{
+    margin-bottom: 20px;
+
+}
+div.scores{
+    top: 700px;
+    left: 0px;
+}
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+/* //For Large Laptops */
+body{
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    width: 100%;
+    
+}
+.header{
+    width: 100%;
+}
+.header > h1{
+    font-size: 4rem;
+}
+div.game-div{
+    justify-self: center;
+    width: 40%;
+}
+.text-div > h2{
+    font-size: 3rem;
+}
+div.the-btn > button{
+    font-size: 3rem;
+    height: 50px;
+    width: 200px;
+}
+.page-refresh{
+    margin-bottom: 20px;
+
+}
+div.scores{
+    top: 350px;
+    left: 0px;
+}
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1504px) {
+/* //For Big TV's (HD Screens)  */
+body{
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    width: 100%;
+    
+}
+.header{
+    width: 100%;
+}
+.header > h1{
+    font-size: 4rem;
+}
+div.game-div{
+    justify-self: center;
+    width: 40%;
+}
+.text-div > h2{
+    font-size: 2.2rem;
+}
+div.the-btn > button{
+        font-size: 1.5rem;
+        height: 50px;
+        width: 150px;
+    }
+    .friends,
+    .computer{
+        width: 30%;
+}
+.page-refresh{
+    margin-bottom: 20px;
+
+}
+div.scores{
+    top: 350px;
+    left: 0px;
+}
 }

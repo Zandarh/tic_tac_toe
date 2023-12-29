@@ -8,8 +8,6 @@ function gameBoard(){
     const column = 3;
 
     createBoard();
-
-
     function createBoard(){
             for (let i = 0; i < row; i++){
                 gameBoard.board[i] = [];
@@ -19,6 +17,7 @@ function gameBoard(){
             }
         
     }
+    // Fills board with plays for players
     function fillBoard(marker, row, column){
         if(gameBoard.board[row][column] == '-')
             gameBoard.board[row][column] = marker;
@@ -51,7 +50,7 @@ function gameBoard(){
                 }
             }
             
-            else if(board[i][j] == board[i+1][j+1]){
+            if(board[i][j] == board[i+1][j+1]){
                 if(board[i][j] == board[i+2][j+2]){
                     if(board[i][j] == 'X' || board[i][j] == 'O')
                         return(board[i][j]);
@@ -65,15 +64,19 @@ function gameBoard(){
         }
     return{fillBoard, checkForWin, resetBoard, gameBoard}
 }
+
+// Creates Player objects
 function player(name, marker){
     let score = 0;
     return{name, marker, score}
 
 }
-function GameControl(){
-    const game = gameBoard();
 
-    //Empty player objects
+//Controls the game
+(function GameControl(){
+    const game = gameBoard(); // Closure with gameboard factory function
+
+    //function scoped viarable
     let player1 = {};
     let player2 = {};
     activePlayer = {};
@@ -101,9 +104,6 @@ function GameControl(){
     const nextRound = document.querySelector('.next-round');
     const refreshPage = document.querySelector('.page-refresh');
 
-    
-
-    bindEvents();
 
     // Binds Event
     function bindEvents(){
@@ -118,7 +118,9 @@ function GameControl(){
         nextRound.addEventListener('click', startNextRound);
         refreshPage.addEventListener('click', restartGame);
     }
+    bindEvents();
 
+    // EventListerner functions
     function openComputerDialog(){
         dialogComputer.showModal();
     }
@@ -133,6 +135,7 @@ function GameControl(){
         dialogComputer.close();
     }
 
+    // Display the player choice on the UI scree
     function showMarker(e){
         const currentPlayer = getActivePlayer();
         if(!e.target.textContent && currentPlayer.name != "Computer"){
@@ -146,6 +149,7 @@ function GameControl(){
         }
     }
 
+    // Get the Id for the current cell to place the player choice on
     function getcellId(e){
         const cellId = e.target.id;
         const array = cellId.split('');
@@ -157,6 +161,7 @@ function GameControl(){
         const winStat = game.checkForWin();
         declareWinner(winStat);
     }
+
     //get player details
     function getPlayerDetails(e){
         e.preventDefault();
@@ -186,7 +191,6 @@ function GameControl(){
                 let player1Name = e.target.firstElementChild.nextElementSibling.value;
                 let player2Name = e.target.lastElementChild.previousElementSibling.value;
                 const marker = getRadioInputValue(e);
-                console.log(marker);
 
                 if(player2Name == ''){
                     player2Name = "Player 2";
@@ -279,14 +283,15 @@ function GameControl(){
             scoreDiv.style.display = "flex";
             scoreDiv.firstElementChild.textContent = (`It's a Tie`);
             toggleRound();
-            console.log(round);
         }
         else{
             scoreDiv.style.display = "flex";
+            scoreDiv.style.position = "fixed";
             scoreDiv.firstElementChild.textContent = (`${activePlayer.name} wins`);
         }
         
     }
+
     function declareWinner(winStat){
         if(winStat){
             if(winStat == 'X'){
@@ -328,6 +333,8 @@ function GameControl(){
             cell.textContent = '';
         });
     }
+
+    // Plays the computer hand
     function computerPlay(){
         if(activePlayer.name == "Computer" && player2.name == "Computer" && round == "open"){
 
@@ -362,6 +369,8 @@ function GameControl(){
         let randomSelect = Math.floor(Math.random( )* arrayLenght);
         return array[randomSelect];
     }
+
+    // Check for draw
     function drawChecker(){
         const draw = [];
         for (let i = 0; i < 3; i++){
@@ -376,6 +385,4 @@ function GameControl(){
             displayScore(activePlayer, aDraw);
         }
     }
-}
-
-const theGame = GameControl();
+})();
